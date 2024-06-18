@@ -26,7 +26,8 @@ jobs:
         id: ecr_login
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          region: us-east-1
+          registry: ${{ secrets.ECR_REGISTRY }}
+          mask-password: true
 
       - name: Build, tag, and push Docker image
         env:
@@ -44,6 +45,9 @@ jobs:
     steps:
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry: ${{ secrets.ECR_REGISTRY }}
+          mask-password: true
 
       - name: Update ECS service
         uses: aws-actions/amazon-ecs-update-service@v1
@@ -51,4 +55,3 @@ jobs:
           cluster: ${{ secrets.ECS_CLUSTER }}
           service: ${{ secrets.ECS_SERVICE }}
           image: ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
-          region: us-east-1
