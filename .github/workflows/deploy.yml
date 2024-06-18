@@ -39,7 +39,6 @@ jobs:
           mask-password: true
 
       - name: Build, tag, and push Docker image
-        id: build-image
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
@@ -76,7 +75,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: praksa-intens
-          image: ${{ needs.build-image.outputs.image }}
+          image: ${{ needs.build.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
