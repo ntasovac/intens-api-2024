@@ -49,7 +49,7 @@ jobs:
           docker push $ECR_REGISTRY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY:$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo $ECR_REGISTRY:$IMAGE_TAG
-          echo $GITHUB_OUTPUT
+          echo ${{ steps.build-image.outputs.image }}
 
   deploy:
     needs: build
