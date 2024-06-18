@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    outputs:
+      image: ${{ steps.build-image.outputs.image }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -73,7 +76,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: praksa-intens
-          image: ${{ steps.build-image.outputs.image }}
+          image: ${{ needs.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
