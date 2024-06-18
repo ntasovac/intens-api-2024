@@ -33,7 +33,6 @@ jobs:
         id: ecr_login
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          registries: ${{ secrets.ECR_REGISTRY }}
           mask-password: true
 
       - name: Build, tag, and push Docker image
@@ -53,7 +52,6 @@ jobs:
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          registries: ${{ secrets.ECR_REGISTRY }}
           mask-password: true
 
       - name: Update ECS service
